@@ -27,7 +27,7 @@ const Home = () => {
               <td className="border border-slate-700 p-2">Indiana</td>
               <td className="border border-slate-700 p-2">Indianapolis</td>
               <td className="border border-slate-700 p-2">
-                <button className="bg-blue-700 rounded-sm p-2">Edit</button>
+                <button className="bg-blue-700 rounded-sm pr-4 ">Edit</button>
               </td>
               <td className="border border-slate-700 p-2">
                 <button className="bg-red-700 rounded-sm p-2">Delete</button>
