@@ -2,14 +2,17 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import route from "../node-crud/routes/userRoute.js"; // Adjust the import path if necessary
+import cors from "cors";
+import route from "../backend/routes/userRoute.js"; // Adjust the import path if necessary
 
 dotenv.config(); // Load environment variables
 
 const app = express();
+
+app.use(cors()); // Enable CORS for cross-origin requests
 app.use(bodyParser.json()); // Use body-parser middleware
 
-const PORT = process.env.PORT || 3000; // Use a different port if needed
+const PORT = process.env.PORT || 8000; // Use a different port if needed
 const MONGOURL = process.env.MONGO_URL; // Get MongoDB URL from environment variables
 
 // Connect to MongoDB

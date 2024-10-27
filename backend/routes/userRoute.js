@@ -1,6 +1,12 @@
 // routes/userRoute.js
 import express from "express";
-import { fetch, create, update,  deleted } from "../controller/userController.js"; // Adjust path if necessary
+import {
+  fetch,
+  create,
+  update,
+  deleted,
+  login,
+} from "../controller/userController.js"; // Adjust path if necessary
 
 const router = express.Router();
 
@@ -9,5 +15,6 @@ router.get("/getAllUsers", fetch);
 router.post("/create", create);
 router.put("/update/:id", update);
 router.delete("/delete/:id", deleted);
+router.post("/login", login);
 
 export default router;

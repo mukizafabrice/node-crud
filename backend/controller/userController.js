@@ -44,17 +44,40 @@ export const update = async (req, res) => {
   }
 };
 
-export const deleted = async(req, res) => {
-    try {
-        const id = req.params.id;
-        const userExist = await User.findOne({ _id: id });
-        if (!userExist) {
-            return res.status(404).json({ error: "user not found" });
-        }
-        await User.findByIdAndDelete(id);
-        res.status(201).json({message: "User deleted successfully"});
-
-    } catch (error) {
-        res.status(500).json({ error: "internal server error" });
+export const deleted = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const userExist = await User.findOne({ _id: id });
+    if (!userExist) {
+      return res.status(404).json({ error: "user not found" });
     }
-}
+    await User.findByIdAndDelete(id);
+    res.status(201).json({ message: "User deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "internal server error" });
+  }
+};
+
+export const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Find user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ error: "user mail not found" });
+    }
+
+    // Direct password comparison
+    if (user.password !== password) {
+      return res.status(401).json({ error: "incorrect password" });
+    }
+
+    // Send success response (no token or session needed)
+    return res.status(200).json({
+      message: "Login successful",
+    });
+  } catch (error) {
+    return res.status(500).json({ error: "Internal error" });
+  }
+};
