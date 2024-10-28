@@ -33,16 +33,37 @@ export const update = async (req, res) => {
     const id = req.params.id;
     const userExist = await User.findOne({ _id: id });
     if (!userExist) {
-      return res.status(404).json({ error: "user not found" });
+      return res.status(404).json({ error: "User not found" });
     }
+
+    // Only update the fields that are sent in req.body
     const updatedUser = await User.findByIdAndUpdate(id, req.body, {
       new: true,
+      runValidators: true, // Ensure validation runs during update
     });
+
     res.status(200).json(updatedUser);
   } catch (error) {
-    res.status(500).json({ error: "internal server error" });
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
+
+// export const update = async (req, res) => {
+//   try {
+//     const id = req.params.id;
+//     const userExist = await User.findOne({ _id: id });
+//     if (!userExist) {
+//       return res.status(404).json({ error: "user not found" });
+//     }
+//     const updatedUser = await User.findByIdAndUpdate(id, req.body, {
+//       new: true,
+//     });
+//     res.status(200).json(updatedUser);
+//   } catch (error) {
+//     res.status(500).json({ error: "internal server error" });
+//   }
+// };
 
 export const deleted = async (req, res) => {
   try {
